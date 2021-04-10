@@ -5,14 +5,20 @@ public class Player
 {
     private static final int IngameCardLimit = 5;
     private final String name;
-    private String handGame[];
-    private int spots;
+    private final DeckCards[] handGame;
+    private int score;
 
-    public Player(String name, String[] handGame, int spots) 
+    public Player(String name, DeckCards[] handGame) 
     {
         this.name = name;
         this.handGame = handGame;
-        this.spots = spots;
+        
+        score = 0;
+    }
+
+    public void sumScoreCards(Card firstCardParameter, Card secondCardParameter)
+    {
+        score = score + firstCardParameter.getScore() + secondCardParameter.getScore();
     }
 
     public String getName() 
@@ -20,23 +26,18 @@ public class Player
         return name;
     }
 
-    public String[] getHandGame() 
+    public DeckCards[] getHandGame() 
     {
         return handGame;
     }
 
-    public void setHandGame(String[] handGame) 
+    public int getScore() 
     {
-        this.handGame = handGame;
+        return score;
     }
 
-    public int getSpots() 
+    public void setScore(int score) 
     {
-        return spots;
-    }
-
-    public void setSpots(int spots) 
-    {
-        this.spots = spots;
+        this.score = score;
     }
 }

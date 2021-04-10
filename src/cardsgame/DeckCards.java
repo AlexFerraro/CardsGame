@@ -1,41 +1,60 @@
 
 package cardsgame;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.SecureRandom;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class DeckCards 
 {
-    private Cards cards;
+    private Card card;
     private Suit suit;
-    private static ImageIcon imageIco;
-    private static SecureRandom secureRandom = new SecureRandom();
+    private ImageIcon imageIco;
 
-    public DeckCards(Cards cards, Suit suit, ImageIcon imageIco) 
-    {
-        this.cards = cards;
+    public DeckCards(Card card, Suit suit, ImageIcon imageIco) {
+        this.card = card;
         this.suit = suit;
         this.imageIco = imageIco;
     }
     
-    public static DeckCards[] generatesDeck() 
+    public static DeckCards[] generatesDeck() throws IOException 
     {
-        int deckSize = Suit.values().length * Cards.values().length;
+        SecureRandom secureRandom = new SecureRandom();
+        InputStream is = null;
+        String path = null;
+        int deckSize = Suit.values().length * Card.values().length;     
         DeckCards deckCards[] = new DeckCards[deckSize];
-        int idx = 0;
+        int index = 0;
 
         for(Suit suit : Suit.values())
-            for(Cards carta : Cards.values())
-                deckCards[idx++] = new DeckCards(carta, suit, imageIco);
-        
+            for(Card card : Card.values())
+            {
+                path = "images/" + suit.getName() + card.getName() + ".png";             
+                is = DeckCards.class
+                        .getClassLoader()
+                        .getResourceAsStream(path);
+                
+                deckCards[index++] = new DeckCards(card, suit,new ImageIcon(ImageIO.read(is)));
+            }
+               
         for(int first = 0; first < deckCards.length; first++) {
             int second = secureRandom.nextInt(deckSize);
-            DeckCards aux = deckCards[first];
+            DeckCards DeckCardsHelper = deckCards[first];
             deckCards[first] = deckCards[second];
-            deckCards[second] = aux;
+            deckCards[second] = DeckCardsHelper;
         }
         
         return deckCards;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 
     public Suit getSuit() 
@@ -48,23 +67,13 @@ public class DeckCards
         this.suit = suit;
     }
 
-    public static ImageIcon getImageIco() 
+    public ImageIcon getImageIco() 
     {
         return imageIco;
     }
 
-    public static void setImageIco(ImageIcon imageIco) 
+    public void setImageIco(ImageIcon imageIco) 
     {
-        DeckCards.imageIco = imageIco;
+        imageIco = imageIco;
     }
-
-    public static SecureRandom getSecureRandom() 
-    {
-        return secureRandom;
-    }
-
-    public static void setSecureRandom(SecureRandom secureRandom) 
-    {
-        DeckCards.secureRandom = secureRandom;
-    } 
 }
