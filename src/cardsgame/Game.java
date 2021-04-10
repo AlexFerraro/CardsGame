@@ -1,11 +1,9 @@
 
 package cardsgame;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class Game extends javax.swing.JFrame {
@@ -21,7 +19,7 @@ public class Game extends javax.swing.JFrame {
         initGame();       
     }
     
-    private void caculationScore(int indexCard, JButton homeButton, JButton playerButton)
+    private void caculationScore(int indexCard)
     {
         int scoreCardPlayerOne = playerOne.getHandGame()[indexCard].getCard().getScore();
         int scoreCardPlayerTwo = playerTwo.getHandGame()[indexCard].getCard().getScore();
@@ -30,12 +28,10 @@ public class Game extends javax.swing.JFrame {
         {
             playerOne.sumScoreCards(playerOne.getHandGame()[indexCard].getCard(), playerTwo.getHandGame()[indexCard].getCard());
             ScoreHouseLable.setText(String.valueOf(playerOne.getScore()));
-            homeButton.setBackground(Color.RED);
         }else
         {
             playerTwo.sumScoreCards(playerOne.getHandGame()[indexCard].getCard(), playerTwo.getHandGame()[indexCard].getCard());
             ScorePlayerLable.setText(String.valueOf(playerTwo.getScore()));
-            playerButton.setBackground(Color.RED);
         }     
     }
     
@@ -377,34 +373,34 @@ public class Game extends javax.swing.JFrame {
         FirstCardPlayerLable.setIcon(playerTwo.getHandGame()[0].getImageIco());
         SecondHouseButton.setEnabled(true);
         FirstPlayerButton.setEnabled(false);
-        caculationScore(0, FirstHouseButton, FirstPlayerButton);  
+        caculationScore(0);  
     }//GEN-LAST:event_FirstPlayerButtonActionPerformed
 
     private void SecondPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SecondPlayerButtonActionPerformed
         SecondCardPlayerLable.setIcon(playerTwo.getHandGame()[1].getImageIco());
         ThirdHouseButton.setEnabled(true);
         SecondPlayerButton.setEnabled(false);
-        caculationScore(1, SecondHouseButton, SecondPlayerButton);
+        caculationScore(1);
     }//GEN-LAST:event_SecondPlayerButtonActionPerformed
 
     private void ThirdPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThirdPlayerButtonActionPerformed
         ThirdCardPlayerLable.setIcon(playerTwo.getHandGame()[2].getImageIco());  
         FourthHouseButton.setEnabled(true);
         ThirdPlayerButton.setEnabled(false);
-        caculationScore(2, ThirdHouseButton, ThirdPlayerButton); 
+        caculationScore(2);
     }//GEN-LAST:event_ThirdPlayerButtonActionPerformed
 
     private void FourthPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FourthPlayerButtonActionPerformed
         FourthCardPlayerLable.setIcon(playerTwo.getHandGame()[3].getImageIco());
         FIfthHouseButton.setEnabled(true);
         FourthPlayerButton.setEnabled(false);
-        caculationScore(3, FourthHouseButton, FourthPlayerButton); 
+        caculationScore(3);
     }//GEN-LAST:event_FourthPlayerButtonActionPerformed
 
     private void FIfthPlayerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FIfthPlayerButtonActionPerformed
         FifthCardPlayerLable.setIcon(playerTwo.getHandGame()[4].getImageIco());
         FIfthPlayerButton.setEnabled(false);
-        caculationScore(4, FIfthHouseButton, FIfthPlayerButton); 
+        caculationScore(4);
         
         if(playerOne.getScore() > playerTwo.getScore())
         {
@@ -437,18 +433,6 @@ public class Game extends javax.swing.JFrame {
         ThirdCardPlayerLable.setIcon(null);
         FourthCardPlayerLable.setIcon(null);
         FifthCardPlayerLable.setIcon(null);
-        
-        FirstHouseButton.setBackground(null);
-        SecondHouseButton.setBackground(null);
-        ThirdHouseButton.setBackground(null);
-        FourthHouseButton.setBackground(null);
-        FIfthHouseButton.setBackground(null);
-        
-        FirstPlayerButton.setBackground(null);
-        SecondPlayerButton.setBackground(null);
-        ThirdPlayerButton.setBackground(null);
-        FourthPlayerButton.setBackground(null);
-        FIfthPlayerButton.setBackground(null);
         
         NewGameButton.setEnabled(false);
         
